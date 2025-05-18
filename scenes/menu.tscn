@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8qs3ho71od1g"]
+
+[ext_resource type="PackedScene" uid="uid://cklw7a37shki2" path="res://scenes/menu_option.tscn" id="1_gi3df"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_yiu2k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fch2o"]
+bg_color = Color(0.65098, 0.768627, 0.541176, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 8
+shadow_offset = Vector2(4, 4)
+
+[node name="menu" type="Control"]
+z_index = 5
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+script = ExtResource("1_yiu2k")
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CharacterBody2D"]
+custom_minimum_size = Vector2(280, 648)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_bottom = 648.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Panel" type="Panel" parent="CharacterBody2D/MarginContainer"]
+custom_minimum_size = Vector2(232, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fch2o")
+
+[node name="MarginContainer" type="MarginContainer" parent="CharacterBody2D/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterBody2D/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="menuOption" parent="CharacterBody2D/MarginContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("1_gi3df")]
+layout_mode = 2
+
+[node name="menuOption2" parent="CharacterBody2D/MarginContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("1_gi3df")]
+layout_mode = 2
+
+[node name="menuOption3" parent="CharacterBody2D/MarginContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("1_gi3df")]
+layout_mode = 2
+
+[node name="menuOption4" parent="CharacterBody2D/MarginContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("1_gi3df")]
+layout_mode = 2

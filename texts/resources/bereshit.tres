@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TabledText" load_steps=2 format=3 uid="uid://bbkn5m1o4eseb"]
+
+[ext_resource type="Script" path="res://texts/resources/tabled_text.gd" id="1_h0qqn"]
+
+[resource]
+script = ExtResource("1_h0qqn")
+text = ""
+rows = []
+columns = []

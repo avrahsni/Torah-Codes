@@ -1,0 +1,4 @@
+Beige: #F5EEDC rgb(245, 238, 220)
+Blue: #27548A rgb(39, 84, 138)
+Navy: #183B4E rgb(24, 59, 78)
+Yellow: #DDA853 rgb(221, 168, 83)

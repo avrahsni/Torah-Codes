@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://chc1wfk7y7tt"]
+
+[ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/material-design-icons/fonts/material_design_icons.ttf" id="1_sf7x7"]
+[ext_resource type="Script" path="res://addons/material-design-icons/nodes/MaterialIcon.gd" id="2_28rdy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvnlr"]
+bg_color = Color(0.403922, 0.552941, 0.345098, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="StyleButton" type="Control"]
+custom_minimum_size = Vector2(200, 72)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(200, 72)
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 72.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yvnlr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MaterialIcon" type="Label" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_sf7x7")
+theme_override_font_sizes/font_size = 56
+text = "󱳊"
+script = ExtResource("2_28rdy")
+icon_name = "account-box-plus-outline"
+icon_size = 56
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Sign Up"

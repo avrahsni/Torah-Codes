@@ -1,0 +1,235 @@
+[gd_scene load_steps=13 format=3 uid="uid://b86wuev156l2o"]
+
+[ext_resource type="Texture2D" uid="uid://ltjr17qi6tdi" path="res://art/icons/menu.svg" id="1_boyyq"]
+[ext_resource type="Script" path="res://scripts/toggle_button.gd" id="1_tciqw"]
+[ext_resource type="PackedScene" uid="uid://d1rs6ncs3y4r4" path="res://scenes/navitem.tscn" id="2_c7hre"]
+[ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/material-design-icons/fonts/material_design_icons.ttf" id="3_tkc48"]
+[ext_resource type="Script" path="res://addons/material-design-icons/nodes/MaterialIcon.gd" id="4_5jrk6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r10uu"]
+bg_color = Color(0.152941, 0.329412, 0.541176, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqlt5"]
+bg_color = Color(0.0941176, 0.231373, 0.305882, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pffxp"]
+resource_local_to_scene = true
+bg_color = Color(0.454902, 0.827451, 0.682353, 0)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2nyh"]
+resource_local_to_scene = true
+bg_color = Color(0.454902, 0.827451, 0.682353, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="Animation" id="Animation_17rjf"]
+length = 0.001
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/top_cont/toggle_button/Panel:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(72, 56)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(72, 432)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/bot_cont/MarginContainer:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_562e3"]
+resource_name = "sidebar_anim"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/top_cont/toggle_button/Panel:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(72, 56), Vector2(200, 56)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(72, 432), Vector2(200, 432)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/bot_cont/MarginContainer:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(72, 64), Vector2(200, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a46sg"]
+_data = {
+"RESET": SubResource("Animation_17rjf"),
+"sidebar_anim": SubResource("Animation_562e3")
+}
+
+[node name="sidebar" type="Panel"]
+custom_minimum_size = Vector2(72, 432)
+offset_right = 70.0
+offset_bottom = 432.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_r10uu")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(72, 632)
+layout_mode = 0
+offset_right = 72.0
+offset_bottom = 432.0
+
+[node name="top_cont" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="toggle_button" type="Control" parent="VBoxContainer/top_cont"]
+custom_minimum_size = Vector2(72, 56)
+layout_mode = 2
+script = ExtResource("1_tciqw")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/top_cont/toggle_button"]
+visible = false
+custom_minimum_size = Vector2(70, 56)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/top_cont/toggle_button"]
+custom_minimum_size = Vector2(72, 56)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqlt5")
+
+[node name="Menu" type="Sprite2D" parent="VBoxContainer/top_cont/toggle_button"]
+visible = false
+position = Vector2(35, 28)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_boyyq")
+
+[node name="MaterialIcon" type="Label" parent="VBoxContainer/top_cont/toggle_button"]
+custom_minimum_size = Vector2(72, 56)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_tkc48")
+theme_override_font_sizes/font_size = 40
+text = "󰍜"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_5jrk6")
+icon_name = "menu"
+icon_size = 40
+
+[node name="home" parent="VBoxContainer/top_cont" groups=["navitems"] instance=ExtResource("2_c7hre")]
+layout_mode = 2
+icon = "home"
+label = "Home"
+
+[node name="Panel" parent="VBoxContainer/top_cont/home/MarginContainer" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_pffxp")
+
+[node name="inv" parent="VBoxContainer/top_cont" groups=["navitems"] instance=ExtResource("2_c7hre")]
+layout_mode = 2
+icon = "warehouse"
+label = "Inventory"
+
+[node name="stats" parent="VBoxContainer/top_cont" groups=["navitems"] instance=ExtResource("2_c7hre")]
+layout_mode = 2
+icon = "chart-bar"
+label = "Statistics"
+
+[node name="bot_cont" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(72, 64)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="profile" parent="VBoxContainer/bot_cont" groups=["navitems"] instance=ExtResource("2_c7hre")]
+layout_mode = 2
+icon = "account"
+label = "Profile"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/bot_cont"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="settings" parent="VBoxContainer/bot_cont/MarginContainer" groups=["navitems"] instance=ExtResource("2_c7hre")]
+layout_mode = 2
+icon = "cog"
+label = "Settings"
+
+[node name="Panel" parent="VBoxContainer/bot_cont/MarginContainer/settings/MarginContainer" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_s2nyh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a46sg")
+}
+
+[connection signal="gui_input" from="VBoxContainer/top_cont/toggle_button" to="VBoxContainer/top_cont/toggle_button" method="_on_gui_input"]
+
+[editable path="VBoxContainer/top_cont/home"]
+[editable path="VBoxContainer/bot_cont/MarginContainer/settings"]

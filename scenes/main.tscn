@@ -1,0 +1,362 @@
+[gd_scene load_steps=12 format=3 uid="uid://dy6bvvx6x47gm"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_ybf0a"]
+[ext_resource type="PackedScene" uid="uid://b86wuev156l2o" path="res://scenes/sidebar.tscn" id="2_hkv3b"]
+[ext_resource type="PackedScene" uid="uid://cl4w72gfsn5po" path="res://scenes/app_bar.tscn" id="3_rrcl7"]
+[ext_resource type="PackedScene" uid="uid://bifgas3k4tm76" path="res://scenes/els.tscn" id="4_m8l31"]
+[ext_resource type="Script" path="res://addons/Page_plugin/page.gd" id="5_rqv0y"]
+[ext_resource type="Script" path="res://scripts/pages/pfp_contents.gd" id="6_0gcj8"]
+[ext_resource type="LabelSettings" uid="uid://cs1s4uxoiybpd" path="res://art/label_settings/general.tres" id="6_uxhyd"]
+[ext_resource type="Theme" uid="uid://dwkeosexc3645" path="res://art/themes/button.tres" id="8_kncno"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6jwct"]
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85vmn"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.866667, 0.592157, 0.529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywpwa"]
+resource_local_to_scene = true
+bg_color = Color(0.65098, 0.768627, 0.541176, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ybf0a")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.960784, 0.933333, 0.862745, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sidebar_marg_cont" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="sidebar" parent="HBoxContainer/sidebar_marg_cont" instance=ExtResource("2_hkv3b")]
+layout_mode = 2
+
+[node name="body_marg_cont" type="MarginContainer" parent="HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="body" type="VBoxContainer" parent="HBoxContainer/body_marg_cont"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="appBar" parent="HBoxContainer/body_marg_cont/body" instance=ExtResource("3_rrcl7")]
+layout_mode = 2
+
+[node name="Pages" type="Control" parent="HBoxContainer/body_marg_cont/body"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Home" parent="HBoxContainer/body_marg_cont/body/Pages" groups=["pages"] instance=ExtResource("4_m8l31")]
+layout_mode = 1
+page_name = "home"
+
+[node name="Inventory" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages" groups=["pages"]]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_rqv0y")
+page_name = "inventory"
+
+[node name="Contents" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_0gcj8")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="total" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Total Inventory"
+label_settings = SubResource("LabelSettings_6jwct")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="email" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Email: avrahsni@gmail.com"
+label_settings = ExtResource("6_uxhyd")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="status" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Status: Logged In"
+label_settings = ExtResource("6_uxhyd")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("8_kncno")
+theme_override_font_sizes/font_size = 32
+text = "Sign Out"
+
+[node name="Stats" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages" groups=["pages"]]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_rqv0y")
+
+[node name="Contents" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_0gcj8")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Name" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Snir Avrahami"
+label_settings = SubResource("LabelSettings_6jwct")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="email" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Email: avrahsni@gmail.com"
+label_settings = ExtResource("6_uxhyd")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="status" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Status: Logged In"
+label_settings = ExtResource("6_uxhyd")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("8_kncno")
+theme_override_font_sizes/font_size = 32
+text = "Sign Out"
+
+[node name="Profile" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages" groups=["pages"]]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_rqv0y")
+page_name = "profile"
+
+[node name="Panel" type="Panel" parent="HBoxContainer/body_marg_cont/body/Pages/Profile"]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_85vmn")
+
+[node name="Label" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "profile Page"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Contents" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages/Profile"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_0gcj8")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Name" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Snir Avrahami"
+label_settings = SubResource("LabelSettings_6jwct")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="email" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Email: avrahsni@gmail.com"
+label_settings = ExtResource("6_uxhyd")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="status" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Status: Logged In"
+label_settings = ExtResource("6_uxhyd")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("8_kncno")
+theme_override_font_sizes/font_size = 32
+text = "Sign Out"
+
+[node name="Settings" type="Control" parent="HBoxContainer/body_marg_cont/body/Pages" groups=["pages"]]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_rqv0y")
+page_name = "settings"
+
+[node name="Panel" type="Panel" parent="HBoxContainer/body_marg_cont/body/Pages/Settings"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ywpwa")
+
+[node name="Label" type="Label" parent="HBoxContainer/body_marg_cont/body/Pages/Settings/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "settings Page"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents/MarginContainer/VBoxContainer/Button" to="HBoxContainer/body_marg_cont/body/Pages/Inventory/Contents" method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents/MarginContainer/VBoxContainer/Button" to="HBoxContainer/body_marg_cont/body/Pages/Stats/Contents" method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents/MarginContainer/VBoxContainer/Button" to="HBoxContainer/body_marg_cont/body/Pages/Profile/Contents" method="_on_button_pressed"]

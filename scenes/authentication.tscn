@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv0f8vb6neyg7"]
+
+[ext_resource type="Script" path="res://scripts/authentication.gd" id="1_mwjhn"]
+[ext_resource type="LabelSettings" uid="uid://cs1s4uxoiybpd" path="res://art/label_settings/general.tres" id="2_2fol3"]
+[ext_resource type="PackedScene" uid="uid://chc1wfk7y7tt" path="res://scenes/style_button.tscn" id="2_evud8"]
+[ext_resource type="Theme" uid="uid://dwkeosexc3645" path="res://art/themes/button.tres" id="4_cg8eo"]
+
+[node name="Authentication" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_mwjhn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.964706, 0.905882, 0.796078, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -133.0
+offset_right = 200.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="stateLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Not Logged In"
+label_settings = ExtResource("2_2fol3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="emailLineEdit" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Email..."
+caret_blink = true
+
+[node name="passwordLineEdit" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Password..."
+caret_blink = true
+secret = true
+
+[node name="loginButton" parent="VBoxContainer" instance=ExtResource("2_evud8")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="signupButton" parent="VBoxContainer" instance=ExtResource("2_evud8")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="login" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_cg8eo")
+text = "Log In"
+
+[node name="signup" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_cg8eo")
+text = "Sign Up"
+
+[connection signal="gui_input" from="VBoxContainer/loginButton" to="." method="_on_login_button_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/signupButton" to="." method="_on_signup_button_gui_input"]
+[connection signal="pressed" from="VBoxContainer/login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/signup" to="." method="_on_signup_pressed"]
