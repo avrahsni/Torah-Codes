@@ -9,15 +9,18 @@ var letter_instance
 @onready var cam = $Camera2D
 
 var searchtext := "This is an example text with highlighted words"
+var new_colnum := 25
 var colnum := 25
 var items := []
 var pos_arr := []
 var pos_col := {}
 var highlight_colors := []
 
+var rs := RenderingServer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var rs = RenderingServer
+	#rs = RenderingServer
 	letter_instance = rs.canvas_item_create()
 	pass
 
@@ -30,8 +33,9 @@ func _process(delta):
 
 func redraw():
 	cam.target_position.y = 0
-	#queue_redraw()
-	update()
+	
+	queue_redraw()
+	#update()
 
 
 func reinterpret_els(arr := [], term_len:= 0):
@@ -59,56 +63,68 @@ func generate_random_hsv_color() -> Color:
 	return Color.from_hsv(hue, saturation, value)
 
 
-var text = "This is an example text with highlighted words"
-var keywords = ["H", "W", "o", "T", "i", "ב"]
-var highlight_color = Color(1, 0.5, 0.5, 1)  # Light red
-var normal_color = Color(1, 1, 1)  # White
+#var text = "This is an example text with highlighted words"
+#var keywords = ["H", "W", "o", "T", "i", "ב"]
+#var highlight_color = Color(1, 0.5, 0.5, 1)  # Light red
+#var normal_color = Color(1, 1, 1)  # White
 
 func _draw():
-	var start_time = Time.get_ticks_msec()
+	#if letter_instance != null:
+		#rs.free_rid(letter_instance)
 	
-	var font : Font = ThemeDB.fallback_font;
-	var char = to_draw_params["char"]
-	var width = to_draw_params["width"]
-	var size = 1760 / colnum if colnum >= 55 else 32#to_draw_params["font_size"]
 	
-	var count := 0
-	var rs = RenderingServer
-	var pos = Vector2(0, 0)
-	if letter_instance != null:
-		rs.free_rid(letter_instance)
-	letter_instance = rs.canvas_item_create()
-	rs.canvas_item_set_draw_behind_parent(letter_instance, true)
-	for c in searchtext:
-		#var mod = (count % colnum)
-		## 1920 x 1080
-		#pos.x = (900 + (colnum * size / 2) - ((size * mod) + size)) #- 480
-		#
-		#pos.y = size * (((count - mod) / colnum) + 1)
-		#count += 1
-		#
-		#
-		#rs.canvas_item_set_parent(letter_instance, get_canvas())
-		#rs.canvas_item_set_z_index(letter_instance, -1)
-		#
-		#var color
-		#if pos_arr.has(count):
-			#color = highlight_colors[pos_col[count]]
-		#else:
-			#color = Color8(0, 0, 0, 0)
-		##var color = highlight_color if keywords.has(c) else Color8(0, 0, 0, 0)
-		#
-		#var rect = Rect2(pos.x - (size / 4) + (size / 12), pos.y - (size * 2 / 3) - (size / 8), size, size)
-		#
-		#rs.canvas_item_add_texture_rect(letter_instance, rect, TextureRect.new(), false, color)
+	if true:#new_colnum != colnum:
+		colnum = new_colnum
+		var start_time = Time.get_ticks_msec()
 		
-		draw_string(font, to_local(pos), c, HORIZONTAL_ALIGNMENT_FILL, width, size, Color.BLACK, 3, TextServer.DIRECTION_RTL)
+		var font : Font = ThemeDB.fallback_font;
+		var char = to_draw_params["char"]
+		var width = to_draw_params["width"]
+		var size = 1760 / colnum if colnum >= 55 else 32#to_draw_params["font_size"]
 		
-	var end_time = Time.get_ticks_msec()
-	var worker_time: float = (end_time-start_time)/1000.0
-	print("Step 3 Completed - " + str(worker_time) + "S")
-	cam.limit_bottom = pos.y + 256
-	cam.limit_right = 1920#(colnum * 32 * 1.5) + 0
+		var count := 0
+		#var rs = RenderingServer
+		var pos = Vector2(0, 0)
+		#if letter_instance != null:
+			#rs.free_rid(letter_instance)
+		#letter_instance = rs.canvas_item_create()
+		#rs.canvas_item_set_draw_behind_parent(letter_instance, true)
+		for c in searchtext:
+			var mod = (count % colnum)
+			# 1920 x 1080
+			pos.x = (900 + (colnum * size / 2) - ((size * mod) + size)) #- 480
+			
+			pos.y = size * (((count - mod) / colnum) + 1)
+			count += 1
+			
+			
+			#rs.canvas_item_set_parent(letter_instance, get_canvas())
+			#rs.canvas_item_set_z_index(letter_instance, -1)
+			#
+			#var color
+			#if pos_arr.has(count):
+				#color = highlight_colors[pos_col[count]]
+			#else:
+				#color = Color8(0, 0, 0, 0)
+			##var color = highlight_color if keywords.has(c) else Color8(0, 0, 0, 0)
+			#
+			#var rect = Rect2(pos.x - (size / 4) + (size / 12), pos.y - (size * 2 / 3) - (size / 8), size, size)
+			#
+			#rs.canvas_item_add_texture_rect(letter_instance, rect, TextureRect.new(), false, color)
+			
+			draw_string(font, to_local(pos), c, HORIZONTAL_ALIGNMENT_FILL, width, size, Color.BLACK, 3, TextServer.DIRECTION_RTL)
+			
+		var end_time = Time.get_ticks_msec()
+		var worker_time: float = (end_time-start_time)/1000.0
+		print("Step 2.5 Completed - " + str(worker_time) + "S")
+		cam.limit_bottom = pos.y + 256
+		cam.limit_right = 1920#(colnum * 32 * 1.5) + 0
+	
+	update()
+	
+
+
+
 
 
 func update():
@@ -117,6 +133,7 @@ func update():
 	#var count := 0
 	var rs = RenderingServer
 	var pos = Vector2(0, 0)
+	
 	
 	
 	if letter_instance != null:

@@ -48,7 +48,7 @@ func _ready():
 	
 	row_size_label.text = str(row_size.value)
 	
-	var file := FileAccess.open("res://texts/bereshit.txt", FileAccess.READ)
+	var file := FileAccess.open("res://texts/torah.txt", FileAccess.READ)
 	filename_label.text = file.get_path().get_file()
 	
 	var rawtext = file.get_as_text()
@@ -296,7 +296,7 @@ func _on_search_button_pressed():
 	#save_resource(searchtext, 25)
 	#set_table(searchtext)
 	#update_table(text_table, row_size.value)
-	disp_text.colnum = row_size.value
+	disp_text.new_colnum = row_size.value
 	var term = search_bar.text if search_bar.text != "" else search_bar.placeholder_text
 	print(detect_alphabet(term))
 	term = remove_non_hebrew(term) if detect_alphabet(term) == "Hebrew" else remove_non_latin_characters(term) if detect_alphabet(term) == "Latin" else term 
