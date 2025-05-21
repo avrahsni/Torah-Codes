@@ -48,7 +48,7 @@ func _ready():
 	
 	row_size_label.text = str(row_size.value)
 	
-	var file := FileAccess.open("res://texts/torah.txt", FileAccess.READ)
+	var file := FileAccess.open("res://texts/bereshit.txt", FileAccess.READ)
 	filename_label.text = file.get_path().get_file()
 	
 	var rawtext = file.get_as_text()

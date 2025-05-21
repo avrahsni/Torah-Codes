@@ -15,19 +15,7 @@ var selected_page
 var pages_info: Array
 var app_bar
 
-var logged_in_user: FirebaseUserData
-signal logged_in
 
-const firebaseConfig = {
-	"apiKey": "AIzaSyCcw42JiG-pgOv7qZ5O4v3bH4SZ_YpXsaw",
-	"authDomain": "inventory-dashboard-444da.firebaseapp.com",
-	"databaseURL": "https://inventory-dashboard-444da-default-rtdb.firebaseio.com",
-	"projectId": "inventory-dashboard-444da",
-	"storageBucket": "inventory-dashboard-444da.appspot.com",
-	"messagingSenderId": "117677976767",
-	"appId": "1:117677976767:web:073f271ddc4c7ae1606a0a",
-	"measurementId": "G-YLQR15QC9P"
-}
 
 #@onready var menu = preload("res://scenes/menu.tscn").instantiate()
 
