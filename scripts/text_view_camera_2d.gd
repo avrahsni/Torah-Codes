@@ -31,11 +31,11 @@ func _unhandled_input(event):
 func check_vert(event):
 	if event is InputEventPanGesture:
 		#print(event.delta)
-		if event.delta.y > 0:
+		if event.delta.y < 0:
 			#Scroll Down
 			if target_position.y < limit_bottom:
 				target_position.y += scroll_speed
-		if event.delta.y < 0:
+		if event.delta.y > 0:
 			#Scroll Up
 			if target_position.y > limit_top:
 				target_position.y -= scroll_speed

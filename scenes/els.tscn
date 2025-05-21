@@ -129,7 +129,6 @@ layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-button_pressed = true
 text = "Multiple Terms"
 
 [node name="Button" type="Button" parent="Contents/MarginContainer/VBoxContainer/search/search1"]
@@ -155,6 +154,7 @@ icon_name = "magnify"
 icon_size = 28
 
 [node name="search2" type="HBoxContainer" parent="Contents/MarginContainer/VBoxContainer/search"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 48
 alignment = 1

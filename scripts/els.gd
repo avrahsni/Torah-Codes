@@ -35,6 +35,7 @@ var final_to_normal = {
 	'\u05E3': '\u05E4',  # Final Pe to Pe
 	'\u05E5': '\u05E6'   # Final Tsadi to Tsadi
 }
+var thread : Thread
 
 #@export var text_table: String
 #var table_size: int
@@ -43,10 +44,13 @@ var final_to_normal = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	thread = Thread.new()
+	
 	row_size_label.text = str(row_size.value)
 	
 	var file := FileAccess.open("res://texts/bereshit.txt", FileAccess.READ)
 	filename_label.text = file.get_path().get_file()
+	
 	var rawtext = file.get_as_text()
 
 	searchtext = rawtext
@@ -232,7 +236,7 @@ func detect_alphabet(text: String) -> String:
 func els(term := "", start := 0, end := 100000, min_skip := 1, max_skip := 1000, igsub := false, mul_terms := false):
 	
 	var max = searchtext.length() / term.length()
-	max = max_skip if max > max_skip else max
+	max = max_skip + 1 if max > max_skip else max + 1
 	
 	var checktext: String = ""
 	var start_positions = []
@@ -300,12 +304,24 @@ func _on_search_button_pressed():
 	min_skip.text = min_skip.placeholder_text if min_skip.text == "" else min_skip.text
 	start.text = start.placeholder_text if start.text == "" else start.text
 	end.text = end.placeholder_text if end.text == "" else end.text
-	var arr = els(term, int(start.text), int(end.text), int(min_skip.text), int(max_skip.text), igsub.button_pressed, mul_terms.button_pressed)
+	
+	var start_time = Time.get_ticks_msec()
+	thread.start(els.bind(term, int(start.text), int(end.text), int(min_skip.text), int(max_skip.text), igsub.button_pressed, mul_terms.button_pressed))
+	var arr = thread.wait_to_finish()
+	#var arr = els(term, int(start.text), int(end.text), int(min_skip.text), int(max_skip.text), igsub.button_pressed, mul_terms.button_pressed)
+	var end_time = Time.get_ticks_msec()
+	var worker_time: float = (end_time-start_time)/1000.0
+	
 	var found = "Found" if !arr.is_empty() else "Not Found"
-	print("Step 1 Completed - " + found)
+	print("Step 1 Completed - " + found + " - " + str(worker_time) + "S")
+	start_time = Time.get_ticks_msec()
 	disp_text.reinterpret_els(arr, search_bar.text.length())
-	print("Step 2 Completed - ")
+	end_time = Time.get_ticks_msec()
+	worker_time = (end_time-start_time)/1000.0
+	print("Step 2 Completed - " + str(worker_time) + "S")
+	#disp_text.update()
 	disp_text.redraw()
+	
 	
 	#disp_text.parse_bbcode(text_table)
 	#print(tabled_text.columns[1])
@@ -319,3 +335,6 @@ func _on_mul_terms_pressed():
 		mul_terms_row.show()
 	
 	pass # Replace with function body.
+
+func _exit_tree():
+	thread.wait_to_finish()
