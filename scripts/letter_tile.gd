@@ -18,6 +18,8 @@ var highlight_colors := []
 
 var rs := RenderingServer
 
+signal fd
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#rs = RenderingServer
@@ -33,9 +35,19 @@ func _process(delta):
 
 func redraw():
 	cam.target_position.y = 0
+	var start_time = Time.get_ticks_msec()
+	if colnum != new_colnum:
+		colnum = new_colnum
+		queue_redraw()
+		await fd
 	
-	queue_redraw()
-	#update()
+	
+	#queue_redraw()
+	
+	var end_time = Time.get_ticks_msec()
+	var worker_time: float = (end_time-start_time)/1000.0
+	print("Step 2.5 Completed - " + str(worker_time) + "S")
+	update()
 
 
 func reinterpret_els(arr := [], term_len:= 0):
@@ -69,8 +81,8 @@ func generate_random_hsv_color() -> Color:
 #var normal_color = Color(1, 1, 1)  # White
 
 func _draw():
-	#if letter_instance != null:
-		#rs.free_rid(letter_instance)
+	if letter_instance != null:
+		rs.free_rid(letter_instance)
 	
 	
 	if true:#new_colnum != colnum:
@@ -114,13 +126,14 @@ func _draw():
 			
 			draw_string(font, to_local(pos), c, HORIZONTAL_ALIGNMENT_FILL, width, size, Color.BLACK, 3, TextServer.DIRECTION_RTL)
 			
-		var end_time = Time.get_ticks_msec()
-		var worker_time: float = (end_time-start_time)/1000.0
-		print("Step 2.5 Completed - " + str(worker_time) + "S")
+		#var end_time = Time.get_ticks_msec()
+		#var worker_time: float = (end_time-start_time)/1000.0
+		#print("Step 2.5 Completed - " + str(worker_time) + "S")
 		cam.limit_bottom = pos.y + 256
 		cam.limit_right = 1920#(colnum * 32 * 1.5) + 0
 	
-	update()
+	emit_signal("fd")
+	#update()
 	
 
 
